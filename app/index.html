@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaf Disease Detector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+        }
+        .one-section {
+            width: 40%;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+        .two-section {
+            width: 60%;
+            background-color: #ccc;
+            padding: 20px;
+            text-align: left;
+        }
+        input, button {
+            margin: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+    
+        }
+        button:hover {
+      background-color: #0056b3;
+    }
+        #imagePreview img {
+            max-width: 100%;
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="one-section">
+            <h1>Leaf Disease Detector</h1>
+            <input type="file" id="imageUpload" accept="image/*">
+            <button onclick="predict()">Predict</button>
+            <div id="imagePreview"></div>
+            <h3><b><span id="prediction"></b></span></h3>
+        </div>
+        <div class="two-section">
+            <h2><b>PREDICTION</b></h2>
+                <h3>Disease:<span id="discription"></span></h3>
+                <h3>Cure: <span id="cure"></span></h3> 
+        </div>      
+    </div>
+
+    <script>
+        function predict() {
+    const input = document.getElementById("imageUpload");
+    const imagePreview = document.getElementById("imagePreview");
+    const predictionResult = document.getElementById("predictionResult");
+    const prediction = document.getElementById("prediction");
+    const cure = document.getElementById("cure");
+    const descriptionElement = document.getElementById("discription");
+
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            imagePreview.innerHTML = `<img src="${e.target.result}" alt="Uploaded Leaf Image">`;
+            prediction.textContent = "Analyzing...";
+            cure.innerHTML = "";
+            const formData = new FormData();
+            formData.append("image", input.files[0]);
+
+            fetch("http://127.0.0.1:5000/predict", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("API Response:", data); // Debugging
+                prediction.textContent = `${data.prediction}`;
+                if (descriptionElement && cure) {
+                    if (data.cure.cure && data.cure.description) {
+                        let cureInfo = data.cure.cure.split('\n');
+                        let cureHtml = '<ul>';
+                        cureInfo.forEach(point => {
+                            if (point.trim()) {
+                                cureHtml += `<li>${point.trim()}</li>`;
+                            }
+                        });
+                        cureHtml += '</ul>';
+                        descriptionElement.innerHTML = `<p>${data.cure.description}</p>`;
+                        cure.innerHTML = cureHtml;
+                        cure.style.textAlign = 'left';
+                    } else {
+                        cure.textContent = "Cure information not available";
+                    }
+                } else {
+                    console.error("Description or cure element not found");
+                }
+            })
+            .catch(error => {
+                console.error("Fetch error:", error);
+                if (predictionResult) {
+                    predictionResult.textContent = "Error predicting disease";
+                }
+                if (prediction) {
+                    prediction.textContent = "";
+                }
+                if (cure) {
+                    cure.innerHTML = "";
+                }
+            });
+        };
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        if (predictionResult) {
+            predictionResult.textContent = "Please upload an image first.";
+        }
+        cure.innerHTML = "";
+    }
+}
+
+    </script>
+</body>
+</html>
