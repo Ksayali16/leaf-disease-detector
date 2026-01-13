@@ -1,0 +1,17 @@
+class_labels = {
+   0: "Bellpepper Bacterial spot",
+   1: "Bellpepper healthy",
+   2: "Cherry healthy",
+   3: "Powdery mildew",
+   4: "Grape Isariopsis",
+   5: "Grape blackmeasles",
+   6: "Grape blackrot",
+   7: "Grape healthy",
+   8: "Strawberry Leafscorch",
+   9: "Strawberry healthy",
+   10: "Tomato Earlyblight",
+   11: "Tomato Lateblight",
+   12: "Tomato LeafMold",
+   13: "Septoria leaf spot",
+   14: "Tomato Bacterial spot",
+   15: "Tomato healthy"} # Replace with your actual class labels
