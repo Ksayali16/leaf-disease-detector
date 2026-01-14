@@ -66,7 +66,7 @@
         
         # Once executed, the application will automatically open in your default web browser.
         
-   5. Testing & Evaluation
+5. Testing & Evaluation
 
           After obtaining the .h5 file:
           
@@ -78,41 +78,43 @@
         
             # Make sure to update file paths before running.
 
-📁 Project Structure
-leaf-disease-detector/
-├── src/                 # Core ML logic
-│   ├── train.py
-│   ├── predict.py
-│   ├── evaluate.py
-│   ├── split_data.py
-│   ├── label_dict.py
-│   └── description_dict.py
-│
-├── app/                 # Web interface + API
-│   ├── app.py
-│   └── index.html
-│
-├── sampledataset/       # Small sample images
-│
-├── results/             # Screenshots of results
-│
-├── requirements.txt
-└── README.md
+6. Project Structure
+   
+                leaf-disease-detector/
+                ├── src/                 # Core ML logic
+                │   ├── train.py
+                │   ├── predict.py
+                │   ├── evaluate.py
+                │   ├── split_data.py
+                │   ├── label_dict.py
+                │   └── description_dict.py
+                │
+                ├── app/                 # Web interface + API
+                │   ├── app.py
+                │   └── index.html
+                │
+                ├── sampledataset/       # Small sample images
+                │
+                ├── results/             # Screenshots of results
+                │
+                ├── requirements.txt
+                └── README.md
 
 **Results**
 
-  The results/ folder contains:
-    Confusion Matrix
-    Accuracy Screenshot
-    Sample Predictions
-  These demonstrate the performance of the trained model.
+         The results/ folder contains:
+            Confusion Matrix
+            Accuracy Screenshot
+            Sample Predictions
+          These demonstrate the performance of the trained model.
 
 **Future Improvements**
-  1.Add more plant species
-  2.Improve accuracy using transfer learning
-  3.Mobile app integration
-  4.Real-time camera detection
-  5.Cloud deployment (AWS/GCP)
+
+          1.Add more plant species
+          2.Improve accuracy using transfer learning
+          3.Mobile app integration
+          4.Real-time camera detection
+          5.Cloud deployment (AWS/GCP)
 
 Author:
 Sayali kurane
